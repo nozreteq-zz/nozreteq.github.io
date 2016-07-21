@@ -1,8 +1,6 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-
     <meta charset="utf-8">
     <style>
         body {
@@ -64,8 +62,8 @@
         });
 
         function init() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+            width = canvas.width = window.innerWidth  - 4;
+            height = canvas.height = window.innerHeight - 4;
             context = canvas.getContext("2d");
             for (var i = 0; i < n; ++i) {
                 particles[i] = {
