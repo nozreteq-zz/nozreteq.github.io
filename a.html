@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #table, #table2 {
+            font-family: 'Trebuchet MS';
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #table td {
+                border: 1px dotted #999;
+                text-align: left;
+                padding: 8px;
+            }
+
+
+            #table2 td, th {
+                border: 1px dotted #CCC;
+                text-align: left;
+                padding: 8px;
+            }
+
+        /*#table td:nth-child(even) {
+            background-color: #EAEAEA;
+        }*/
+    </style>
+</head>
+<body>
+
+    <table id="table">
+        <tr style="color:#FFF; background: #01508C; font-weight:bold">
+            <td colspan="2" style="text-align:center">DOCUMENTAÇÃO DE CASOS DE USO - TABELA</td>
+        </tr>
+        <tr style="color:#FFF; background: #0F78E0; font-weight:bold">
+            <td >Título do caso de uso</td>
+            <td>Cadastrar Usuário</td>
+        </tr>
+        <tr>
+            <td style="background: #DDDDDD">Código Identificador</td>
+            <td>DCUS01</td>
+        </tr>
+        <tr>
+            <td style="background: #DDDDDD">Sumário</td>
+            <td>Este requisito que o usuário faça o cadastro de seus dados no sistema.</td>
+        </tr>
+        <tr>
+            <td style="background: #DDDDDD">Ator primário</td>
+            <td>Usuário</td>
+        </tr>
+        <tr>
+            <td style="background: #DDDDDD">Ator secundário</td>
+            <td>Sistema</td>
+        </tr>
+        <tr>
+            <td style="background: #DDDDDD">Pré-condições</td>
+            <td>Registrar o usuário</td>
+        </tr>
+        <tr>
+            <td style="background: #DDDDDD; vertical-align:top">Fluxo Principal</td>
+            <td>
+                <table id="table2">
+                    <tr>
+                        <th>Ator</th>
+                        <th>Sistema</>
+                    </tr>
+                    <tr>
+                        <td>FP01 - O usuário seleciona "Cadastrar Usuário"</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>FP02 - Exibir a página "Dados do Usuário"</td>
+                    </tr>
+                    <tr>
+                        <td>FP03 - O usuário informa o nome</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>FP04 - Receber o nome - <strong>FE01</strong></td>
+                    </tr>
+
+                    <tr>
+                        <td>FP05 - O usuário informa a data de nascimento</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>FP06 - Receber a data de nascimento - <strong>FE02</strong></td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td style="background: #DDDDDD; vertical-align:top">Fluxo de Alternativo</td>
+            <td>
+                <strong>FA01</strong> - Cancela o cadastro de usuário.
+                <p>&nbsp; a. O usuário seleciona a opção "Limpar Dados".</p>
+                <p>&nbsp; b. O caso de uso retorna a tela inicial.</p>
+                <p>&nbsp; c. o caso de uso termina.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="background: #DDDDDD">Fluxo de Exceção</td>
+            <td>
+                <strong>FE01</strong> - Receber o nome.
+                <p>&nbsp; a. se no nome não for informado, o sistema exibe a mensagem: "informe o nome".</p>
+                <p>&nbsp; b. Retorna ao FP03.</p>               
+            </td>
+        </tr>
+        <tr>
+            <td style="background: #DDDDDD">&nbsp;</td>
+            <td>
+                <strong>FE02</strong> - Receber a data de nascimento.
+                <p>&nbsp; a. se a data de nascimento não for informada, o sistema exibe a mensagem: "informe a data de nascimento".</p>
+                <p>&nbsp; b. Retorna ao FP05.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="background: #DDDDDD">Pós-condição</td>
+            <td>Não há</td>
+        </tr>
+        <tr>
+            <td style="background: #DDDDDD">Regras de Negócio</td>
+            <td>RN01 - O cadastro poderá ser feito apenas para usuários maiores de 18 anos.</td>
+        </tr>
+
+    </table>
+
+</body>
+</html>
