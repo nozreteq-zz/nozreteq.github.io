@@ -53,7 +53,7 @@ p {
 }
 .sidebar-wrapper {
   background: #42A8C0;
-  position: fixed;
+  position: absolute;
   right: 0;
   width: 280px;
   height: 100%;
@@ -63,7 +63,8 @@ p {
 .sidebar-wrapper a {
   color: #fff;
 }
-.sidebar-wrapper .profile-container {
+.sidebar-wrapper .profile-container 
+{
   padding: 30px;
   background: rgba(0, 0, 0, 0.2);
   text-align: center;
