@@ -1,1 +1,85 @@
 
+
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//Web API
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+  [HttpPost]
+        [SGEAuthorize(NivelAction = NivelPermissao.NoPermission)]
+        public HttpResponseMessage GetCompDetalhado(HttpRequestMessage request)
+        {
+            try
+            {
+                CompFileModel param = JsonConvert.DeserializeObject<CompFileModel>(request.Content.ReadAsStringAsync().Result);
+
+                ObjetoTransporte<CompFileModel> transporte = _masterPlanService.GetCompDetalhado(param.CodigoProjeto, param.AnoMes, UsuarioLogado);
+
+                if (transporte.Tipo != TipoRetorno.Sucesso)
+                    return Request.CreateResponse(HttpStatusCode.NoContent);
+
+                MediaTypeHeaderValue mediaType = new MediaTypeHeaderValue("application/octet-stream");
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new ByteArrayContent(transporte.Objeto.Buffer);
+                response.Content.Headers.ContentType = mediaType;
+                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                response.Content.Headers.ContentDisposition.FileName = transporte.Objeto.FileName;
+
+                return response;
+
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+
+        }
+
+        #endregion Exportar Comp
+
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//Java Script
+
+
+  getCompDetalhado: function (codigoProjeto) {
+
+            var req = new XMLHttpRequest();
+            req.open('POST', masterPlan.funcs.loadUrlGetCompDetalhado(), true);
+            req.setRequestHeader("token", sge.funcs.getUsuario().Token);
+
+            req.setRequestHeader("Content-Type", "application/json");
+            req.responseType = "arraybuffer";
+
+            req.onload = function (event) {
+
+                if (this.status !== 200) {
+                    dxDialog.funcs.showAlert('Não existem dados para exibir.');
+                } else {
+                    var binaryData = [];
+                    binaryData.push(req.response);
+
+                    var filename = "";
+
+                    if (req.getResponseHeader('Content-Disposition') && req.getResponseHeader('Content-Disposition').indexOf('attachment') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(req.getResponseHeader('Content-Disposition'));
+                        if (matches != null && matches[1]) {
+                            filename = matches[1].replace(/['"]/g, '');
+                        }
+                    }
+
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(new Blob(binaryData, { type: "application/octet-stream" }))
+                    link.download = filename;
+                    link.click();
+                }
+            };
+
+            var anoComp = masterPlan.vars.dataComp.getFullYear();
+            var mesComp = masterPlan.vars.dataComp.getMonth() + 1 < 10 ? '0' + (masterPlan.vars.dataComp.getMonth() + 1).toString() : (masterPlan.vars.dataComp.getMonth() + 1).toString();
+            var anoMesComp = anoComp + mesComp;
+
+            var params = { CodigoProjeto: codigoProjeto, AnoMes: anoMesComp };
+
+            req.send(JSON.stringify(params));
+
+        },
