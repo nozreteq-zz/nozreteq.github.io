@@ -1,0 +1,20 @@
+		{
+			dataField: "Product",
+			groupIndex: 0,
+			groupCellTemplate: function (container, options) {
+
+				container.attr("style","background-color: #FFEDEB;");
+
+				$("<div>").html('Product').appendTo(container);
+			},
+		},
+		{
+			dataField: "Region",
+			groupIndex: 1,
+			groupCellTemplate: function (container, options) {
+
+				container.attr("style","background-color: #E7FFE3;");
+
+				$("<div>").html('Region').appendTo(container);
+			},
+		},
